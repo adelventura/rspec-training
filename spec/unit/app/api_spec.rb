@@ -59,18 +59,18 @@ module ExpenseTracker
       context 'when expenses exist on the given data' do
         before do
           allow(ledger).to receive(:get_expenses_by_date)
-            .with('11-07-2023')
+            .with('2023-11-07')
             .and_return(['pet supplies'])
         end
 
         it 'returns the expense records as JSON' do
-          get '/expenses/11-07-2023'
+          get '/expenses/2023-11-07'
 
           expect(parse).to include('pet supplies')
         end
 
         it 'responds with a 200 (OK)' do
-          get '/expenses/11-07-2023'
+          get '/expenses/2023-11-07'
           expect(last_response.status).to eq(200)
         end
       end
@@ -79,17 +79,17 @@ module ExpenseTracker
     context 'when there are no expenses on the given date' do
       before do
         allow(ledger).to receive(:get_expenses_by_date)
-          .with('10-01-2023')
+          .with('2023-10-01')
           .and_return([])
       end
 
       it 'returns an empty array as JSON' do
-        get '/expenses/10-01-2023'
+        get '/expenses/2023-10-01'
         expect(parse).to be_empty
       end
 
       it 'responds with a 200 (OK)' do
-        get '/expenses/10-01-2023'
+        get '/expenses/2023-10-01'
         expect(last_response.status).to eq(200)
       end
     end
